@@ -14,6 +14,10 @@ const ReservationSchema = new Schema<ReservationmongooseType>(
       type: Date,
       required: true,
     },
+    hour: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

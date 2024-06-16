@@ -9,9 +9,9 @@ import { Reservation } from "../model/Reservation.model";
 export const createReservationService = async (
   createReservationDto: CreateReservationDto
 ) => {
-  const { created_by, setDate } = createReservationDto;
+  const { created_by, setDate, hour } = createReservationDto;
 
   const foundUser = await getUserByIdService(created_by);
 
-  return await Reservation.create({ created_by: foundUser, setDate });
+  return await Reservation.create({ created_by: foundUser, setDate, hour });
 };

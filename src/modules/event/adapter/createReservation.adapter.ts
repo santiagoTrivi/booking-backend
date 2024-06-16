@@ -6,6 +6,7 @@ import { CreateReservationDto } from "../domain/createReservation.dto";
 
 export const createReservationSchema = Joi.object({
   setDate: Joi.date().required(),
+  hour: Joi.number().required(),
 });
 
 export class CreateReservationDtoAdapter extends Adapter<CreateReservationDto> {
@@ -17,6 +18,6 @@ export class CreateReservationDtoAdapter extends Adapter<CreateReservationDto> {
     if (result.error) throw errorJoiAdapter(result.error);
 
     const { value } = result;
-    return CreateReservationDto.create(value.setDate, created_by);
+    return CreateReservationDto.create(value.setDate, created_by, value.hour);
   }
 }
