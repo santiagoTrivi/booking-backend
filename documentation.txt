@@ -1,0 +1,19 @@
+documentation branch: santiago-feature
+
+new library implemented
+
+morgan: HTTP request logger middleware for Node. js. It simplifies the process of logging requests to your application. 
+winston: it is the most popular logging library for Node. js. It aims to make logging more flexible and extensible by decoupling different aspects such as log levels, formatting, and storage so that each API is independent and many combinations are supported.
+cross-env: it is a valuable npm package for managing environment variables in a Node. js project. 
+
+
+new npm scripts implemented
+
+- start:dev : to run the app in development mode. it includes morgan logging and nodemon
+- start:prod : first it transpiles the code to javascript by TSC command, then run the app in production mode. it does not include morgan loggin
+
+
+new changes
+
+mongoose models changed: applyed mongodb referencing. In this approach, documents have references to other documents using identifiers. For example, you can store a reference to a publisher document within a book document. This approach is suitable for one-to-many or many-to-many relationships, where the related data is large or frequently changing 
+doing that we ahve the option to populate, filter and macth by reference our queries

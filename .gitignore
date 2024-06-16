@@ -1,0 +1,14 @@
+node_modules
+storage/*
+storage/profile
+storage/stories
+!storage/.gitkeep
+.env
+dist/
+
+.vscode
+
+logs
+logs/*
+
+.idea
