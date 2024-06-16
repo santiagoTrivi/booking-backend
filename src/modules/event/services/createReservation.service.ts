@@ -11,6 +11,18 @@ export const createReservationService = async (
 ) => {
   const { created_by, setDate, hour } = createReservationDto;
 
+  const foundReservation = await Reservation.findOne({
+    setDate,
+    hour,
+  });
+
+  if (foundReservation) {
+    throw new BadRequestError(
+      "reservation already exists",
+      "RESERVATION_ERROR"
+    );
+  }
+
   const foundUser = await getUserByIdService(created_by);
 
   return await Reservation.create({ created_by: foundUser, setDate, hour });
