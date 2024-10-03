@@ -10,6 +10,8 @@ import { GetProfileService } from "../user/services/getProfile.service";
 import { RegisterUserAdapter } from "./adapter/register.user.adapter";
 import { LoginDtoAdapter } from "./adapter/login.adapter";
 import { RefreshTokenAdapter } from "./adapter/refreshToken.adapter";
+import { CreateUserWithPhoneAdapter } from "./adapter/create.user.with.phone.adapter";
+import { CreateUserWithPhoneService } from "./services/createUserWithPhone.service";
 
 export class AuthController {
   private getProfileService = new GetProfileService();
@@ -19,6 +21,16 @@ export class AuthController {
     try {
       const registerUserDto = new RegisterUserAdapter().adapt(req);
       const response = await registerNewUserService(registerUserDto);
+      const { password, ...data } = response;
+      res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+  createUserWithPhone = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const createUserWithPhoneDto = new CreateUserWithPhoneAdapter().adapt(req);
+      const response = await CreateUserWithPhoneService(createUserWithPhoneDto);
       const { password, ...data } = response;
       res.status(201).json(data);
     } catch (error) {

@@ -1,6 +1,7 @@
 import { AuthProps } from "../../auth/domain/authProps.interface";
 
 export interface UserProps extends AuthProps {
+  phone: string;
   email: string;
   profilePicture: string;
   balance: number;

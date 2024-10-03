@@ -14,13 +14,17 @@ const UserMongoSchema = new Schema<UserMongooseType>(
       type: String,
       required: false,
     },
+    phone: {
+      type: String,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
     },
     email: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
     },
     name: {
