@@ -53,7 +53,7 @@ class UserRouter extends DomainRouter {
      *              schema:
      *                $ref: '#/components/schemas/Error500'
      */
-    // this.router.get("/", this.controller.getUsers);
+    this.router.get("/", this.controller.getUsers);
 
     /**
      * @openapi
