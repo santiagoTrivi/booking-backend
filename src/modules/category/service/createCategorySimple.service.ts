@@ -1,4 +1,3 @@
-import { create } from "ts-node";
 import { Category } from "../model/category.model";
 
 export const createCateorySimple = async(name: string) => {
