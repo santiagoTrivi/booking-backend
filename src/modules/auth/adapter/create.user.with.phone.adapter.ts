@@ -8,6 +8,7 @@ export const RegisterUserSchema = Joi.object<CreateUserwithPhoneDto>({
   username: Joi.string().required(),
   phone: Joi.string().required(),
   password: Joi.string().required().min(6),
+  category: Joi.string().required(),
 });
 
 export class CreateUserWithPhoneAdapter extends Adapter<CreateUserwithPhoneDto> {

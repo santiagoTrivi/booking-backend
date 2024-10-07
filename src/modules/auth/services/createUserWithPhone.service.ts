@@ -1,4 +1,5 @@
 import { encrypt } from "../../../utils/bcrypt.handle";
+import { createCateorySimple } from "../../category/service/createCategorySimple.service";
 import { BadRequestError } from "../../common/domain/exceptions/badRequest.exception";
 import { InternalServerError } from "../../common/domain/exceptions/internalServer.exception";
 import { BankNumberGenerator } from "../../common/services/bankNumberGenerator";
@@ -8,12 +9,12 @@ import { User } from "../../user/model/user.model";
 import { CreateUserwithPhoneDto } from "../domain/dtos/createUserWithPhone.dtp";
 
 export const CreateUserWithPhoneService = async (createUserwithPhoneDto: CreateUserwithPhoneDto) => {
-    const { phone, password, username} = createUserwithPhoneDto;
-
+    const { phone, password, username, category} = createUserwithPhoneDto;
+    
     const userRole = await RoleModel.findOne({ value: DOMAIN_ROLES.user });
-  if (!userRole) {
-    throw new InternalServerError("User role not found", "ROLE_NOT_FOUND");
-  }
+    if (!userRole) {
+        throw new InternalServerError("User role not found", "ROLE_NOT_FOUND");
+    }
 
     const usernameExists = await User.findOne({ username });
     if (usernameExists) {
@@ -22,11 +23,10 @@ export const CreateUserWithPhoneService = async (createUserwithPhoneDto: CreateU
             "USERNAME_EXISTS"
         );
     }
-
     const phoneExists = await User.findOne({ phone });
     if (phoneExists) {
         throw new BadRequestError(
-            "El correo electrónico ya está en uso.",
+            "El telefono  ya está en uso.",
             "ALREADY_USER"
         );
     }
@@ -41,5 +41,13 @@ export const CreateUserWithPhoneService = async (createUserwithPhoneDto: CreateU
         isPublic: false,
         bankNumber
     });
+
+    if(category){
+        const existCategory = await createCateorySimple(category);
+        newUser.category = existCategory;
+        newUser.save();
+    }
+    
+
     return newUser.toObject();
 };

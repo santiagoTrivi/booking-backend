@@ -3,6 +3,7 @@ import { PaginationOption } from "../../common/domain/paginationOptions.interfac
 import { MongoosePaginationService } from "../../common/services/mongoosePagination.service";
 import { FilterUserQuery } from "../domain/dtos/filterUsersQuery.dto";
 import { User, UserMongooseType } from "../model/user.model";
+import { Category } from "../../category/model/category.model";
 
 export class GetUserService {
   private mongoosePaginationService =
@@ -32,10 +33,18 @@ export class GetUserService {
       email: 0,
     };
 
+    const populate = [
+      {
+        path: "category",
+        model: Category,
+        select: "name"
+      },
+    ];
+
     return await this.mongoosePaginationService.paginate(
       query,
       paginationOptions,
-      undefined,
+      populate,
       selectedData
     );
   };

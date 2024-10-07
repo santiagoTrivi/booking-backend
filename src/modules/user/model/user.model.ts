@@ -16,7 +16,7 @@ const UserMongoSchema = new Schema<UserMongooseType>(
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
     },
     password: {
       type: String,
@@ -25,7 +25,6 @@ const UserMongoSchema = new Schema<UserMongooseType>(
     email: {
       type: String,
       required: false,
-      unique: true,
     },
     name: {
       type: String,
@@ -42,6 +41,11 @@ const UserMongoSchema = new Schema<UserMongooseType>(
         required: true,
       },
     ],
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "category",
+      required: false,
+    }
   },
   {
     versionKey: false,

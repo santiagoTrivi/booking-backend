@@ -1,3 +1,4 @@
+import { createCateorySimple } from "../../category/service/createCategorySimple.service";
 import { BadRequestError } from "../../common/domain/exceptions/badRequest.exception";
 import { updateUserDto } from "../domain/dtos/updateDto";
 import { User } from "../model/user.model";
@@ -8,7 +9,7 @@ export const updateUserService = async (
   updateUserDto: updateUserDto
 ) => {
   const user = await getUserByIdService(myUserId);
-  const { username, description, isPublic } = updateUserDto;
+  const { username, description, isPublic, category } = updateUserDto;
 
   if (username) {
     const userWithSameUsername = await User.findOne({ username });
@@ -33,6 +34,11 @@ export const updateUserService = async (
 
   if (isPublic !== undefined) {
     user.isPublic = isPublic;
+  }
+
+  if (category) {
+    const categoryExists = await createCateorySimple(category);
+    user.category = categoryExists;
   }
 
   const updatedUser = await user.save();

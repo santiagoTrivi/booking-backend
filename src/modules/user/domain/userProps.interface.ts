@@ -15,4 +15,5 @@ export interface UserProps extends AuthProps {
   followingsCount: number;
   role: any[];
   bankNumber: string;
+  category: any;
 }
